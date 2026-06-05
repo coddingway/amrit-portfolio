@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 118" fill="none">
+  <!-- AP logo — matches LoadingScreen.tsx exactly -->
+  <!-- Accent amber: oklch(0.72 0.18 50) → #C8803A -->
+  <line x1="54" y1="5"   x2="5"  y2="112" stroke="#C8803A" stroke-width="7.5" stroke-linecap="round"/>
+  <line x1="54" y1="5"   x2="74" y2="70"  stroke="#C8803A" stroke-width="7.5" stroke-linecap="round"/>
+  <circle cx="70" cy="44" r="27"           stroke="#C8803A" stroke-width="7.5" fill="none"/>
+  <line x1="22" y1="66"  x2="98" y2="66"  stroke="#C8803A" stroke-width="7.5" stroke-linecap="round"/>
+  <line x1="5"  y1="112" x2="18" y2="112" stroke="#C8803A" stroke-width="7.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Instrument+Serif:ital@1&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+@theme {
+  /* Backgrounds */
+  --color-bg:           oklch(0.05 0 0);
+  --color-surface:      oklch(0.13 0 0);   /* was 0.11 — cards need gap from bg */
+  --color-surface-high: oklch(0.17 0 0);   /* was 0.14 */
+
+  /* Borders */
+  --color-stroke:       oklch(0.18 0 0);
+  --color-stroke-high:  oklch(0.25 0 0);
+
+  /* Accent — Ember (global default) */
+  --color-accent:       oklch(0.72 0.18 50);
+  --color-accent-dim:   oklch(0.48 0.14 50);
+
+  /* Text */
+  --color-text-primary: oklch(0.96 0 0);
+  --color-muted:        oklch(0.72 0 0);   /* was 0.66 — raised for body readability */
+  --color-faint:        oklch(0.52 0 0);   /* was 0.37 — small labels need this minimum */
+
+  /* Bayern (Football page only) */
+  --color-bayern-red:   oklch(0.47 0.22 28);
+  --color-bayern-dim:   oklch(0.30 0.18 28);
+  --color-bayern-blue:  oklch(0.48 0.14 255);
+
+  /* Fonts */
+  --font-body:    'Inter', sans-serif;
+  --font-display: 'Instrument Serif', serif;
+}
+
+/* ── CSS Custom Properties (runtime theming) ── */
+/* These drive var(--accent) across all components and switch on page change */
+:root {
+  --accent:        oklch(0.72 0.18 50);
+  --accent-dim:    oklch(0.48 0.14 50);
+  --accent-glow:   oklch(0.72 0.18 50 / 0.30);
+  --accent-subtle: oklch(0.72 0.18 50 / 0.08);
+}
+
+/* Bayern override — scoped to football page only */
+[data-page="football"] {
+  --accent:        oklch(0.47 0.22 28);
+  --accent-dim:    oklch(0.30 0.18 28);
+  --accent-glow:   oklch(0.47 0.22 28 / 0.30);
+  --accent-subtle: oklch(0.47 0.22 28 / 0.08);
+}
+
+/* ── Base ── */
+html {
+  /* scroll-behavior removed — Lenis handles smooth scroll */
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ── Accent Gradient Utilities ── */
+.accent-gradient {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dim) 100%);
+}
+
+.accent-gradient-reverse {
+  background: linear-gradient(270deg, var(--accent) 0%, var(--accent-dim) 100%);
+}
+
+.accent-gradient-glow {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dim) 50%, var(--accent) 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ── Logo Glow ── */
+.logo-glow {
+  filter: drop-shadow(0 0 8px var(--accent-glow));
+  transition: filter 0.3s ease;
+}
+.logo-glow:hover {
+  filter: drop-shadow(0 0 16px var(--accent-glow));
+}
+
+/* ── Glow Box Shadow ── */
+.glow-accent {
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 60px var(--accent-subtle);
+}
+
+/* ── Animations ── */
+@keyframes scroll-down {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+@keyframes role-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+.animate-scroll-down   { animation: scroll-down 1.5s ease-in-out infinite; }
+.animate-role-fade-in  { animation: role-fade-in 0.4s ease-out; }
+.animate-gradient-shift{ background-size: 200% 200%; animation: gradient-shift 6s ease infinite; }
+.animate-float         { animation: float 4s ease-in-out infinite; }
+.animate-pulse-ring    { animation: pulse-ring 1.8s ease-out infinite; }
+
+/* ── Halftone overlay ── */
+.halftone-overlay {
+  background-image: radial-gradient(circle, oklch(0 0 0) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* ── Noise/Grain overlay ── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Glass surface ── */
+.glass {
+  background: oklch(1 0 0 / 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(1 0 0 / 0.06);
+}
+
+/* ── Custom cursor — hide native on pointer devices ── */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: oklch(0.72 0.18 50 / 0.25);
+  color: oklch(0.96 0 0);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: oklch(0.05 0 0); }
+::-webkit-scrollbar-thumb { background: oklch(0.25 0 0); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
