@@ -1,73 +1,111 @@
-# React + TypeScript + Vite
+# Amrit Podder — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of **Amrit Podder**, Frontend Lead & Design Engineer with 8+ years of experience building fast, polished digital products at the intersection of design precision and engineering excellence.
 
-Currently, two official plugins are available:
+Live at → **[amritpodder.dev](https://amritpodder.dev)** *(coming soon)*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## What is this?
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A fully custom dark-themed portfolio site built from scratch — no templates, no UI kit. Every section, animation, and interaction was designed and engineered specifically to reflect the quality of work Amrit delivers to clients.
 
-## Expanding the ESLint configuration
+It covers:
+- **Who I am** — background, experience timeline, education, and certifications
+- **What I've built** — case studies for projects at Unilever, HAL, BEL, and global DTC brands
+- **What I'm into** — FC Bayern München fandom, photography, and a life beyond code
+- **How to reach me** — a contact form wired to Google Sheets with real-time validation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Purpose
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Most developer portfolios list skills and paste GitHub links. This one is built to do three things:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Convert visitors into clients** — clear services, real project outcomes, direct contact
+2. **Show craft, not just output** — the site itself is the proof of work
+3. **Feel alive** — personality-driven sections (football, photography) make it memorable
+
+---
+
+## Tech Stack
+
+### Core
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 18 + TypeScript |
+| Build tool | Vite |
+| Styling | Tailwind CSS v4 (CSS-first config, OKLCH color tokens) |
+| Routing | React Router v6 with custom page transitions |
+
+### Animation backbone
+| Tool | Used for |
+|------|---------|
+| **GSAP + ScrollTrigger** | All entrance animations, scroll-driven effects, page transitions, counter animations |
+| **GSAP DrawSVG** | SVG path drawing on the Football page |
+| **Lenis** | Smooth scroll across all pages |
+| **Three.js** | Particle field on the hero section |
+
+### Other libraries
+- `react-icons / simple-icons` — tech stack icon set in Skills carousel
+- `Google Apps Script` — serverless backend for contact form → Google Sheets + email notification
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── hero/           # Aurora, Particles, HeroSection
+│   ├── landing/        # StatsStrip, FeaturedWork, SkillsCarousel,
+│   │                   # ClientLogoStrip, FootballTeaser,
+│   │                   # PhotographyTeaser, LandingFooter
+│   ├── about/          # AboutHero, ExperienceTimeline,
+│   │                   # EducationSection, AboutCTA
+│   └── photography/    # PhotographyHero, PhotoMasonry (lightbox)
+├── pages/
+│   ├── Landing.tsx     # Home
+│   ├── About.tsx
+│   ├── Work.tsx        # Project grid
+│   ├── WorkDetail.tsx  # Case study template
+│   ├── Football.tsx    # Bayern München passion page
+│   ├── Photography.tsx # Masonry gallery
+│   └── ContactPage.tsx # Form + Google Sheets
+├── data/
+│   └── projects.ts     # All project data (single source of truth)
+└── lib/
+    ├── transition.ts   # GSAP page transition helper
+    └── scroll.ts       # Lenis smooth scroll setup
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Running locally
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+Open `http://localhost:5173`
+
+---
+
+## Deployment
+
+Deployed on **Vercel** with SPA routing via `vercel.json`:
+
+```json
+{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+```
+
+---
+
+## Built with
+
+React · Vite · Tailwind CSS v4 · TypeScript · GSAP ScrollTrigger · Three.js · Lenis · Claude Code
+
+---
+
+*© 2026 Amrit Podder. All rights reserved.*
