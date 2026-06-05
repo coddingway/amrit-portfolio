@@ -2,7 +2,7 @@
 
 Personal portfolio of **Amrit Podder**, Frontend Lead & Design Engineer with 8+ years of experience building fast, polished digital products at the intersection of design precision and engineering excellence.
 
-Live at → **[amritpodder.dev](https://amritpodder.dev)** *(coming soon)*
+Live at → **[amritpodder.dev](https://amritpodder.dev)**
 
 ---
 
@@ -94,7 +94,7 @@ Open `http://localhost:5173`
 
 ## Deployment
 
-Deployed on **Vercel** with SPA routing via `vercel.json`:
+Deployed on **Vercel** at **[amritpodder.dev](https://amritpodder.dev)** with SPA routing via `vercel.json`:
 
 ```json
 { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
