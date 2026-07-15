@@ -1,5 +1,4 @@
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
+import { useRef } from 'react'
 import './ChromaGrid.css'
 
 export interface ChromaItem {
@@ -18,9 +17,6 @@ interface Props {
   className?: string
   radius?: number
   columns?: number
-  damping?: number
-  fadeOut?: number
-  ease?: string
   onCardClick?: (url: string) => void
 }
 
@@ -29,49 +25,32 @@ export function ChromaGrid({
   className = '',
   radius = 300,
   columns = 3,
-  damping = 0.45,
-  fadeOut = 0.6,
-  ease = 'power3.out',
   onCardClick,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const fadeRef = useRef<HTMLDivElement>(null)
-  const setX = useRef<ReturnType<typeof gsap.quickSetter> | null>(null)
-  const setY = useRef<ReturnType<typeof gsap.quickSetter> | null>(null)
-  const pos = useRef({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const el = rootRef.current
-    if (!el) return
-    setX.current = gsap.quickSetter(el, '--x', 'px')
-    setY.current = gsap.quickSetter(el, '--y', 'px')
-    const { width, height } = el.getBoundingClientRect()
-    pos.current = { x: width / 2, y: height / 2 }
-    setX.current(pos.current.x)
-    setY.current(pos.current.y)
-  }, [])
-
-  const moveTo = (x: number, y: number) => {
-    gsap.to(pos.current, {
-      x, y,
-      duration: damping,
-      ease,
-      onUpdate: () => {
-        setX.current?.(pos.current.x)
-        setY.current?.(pos.current.y)
-      },
-      overwrite: true,
-    })
-  }
+  const cardRefs = useRef<(HTMLArticleElement | null)[]>([])
 
   const handleMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const r = rootRef.current!.getBoundingClientRect()
-    moveTo(e.clientX - r.left, e.clientY - r.top)
-    gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true })
+    const mx = e.clientX - r.left
+    const my = e.clientY - r.top
+
+    cardRefs.current.forEach(card => {
+      if (!card) return
+      const cr = card.getBoundingClientRect()
+      const cx = cr.left - r.left + cr.width / 2
+      const cy = cr.top - r.top + cr.height / 2
+      const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2)
+      const t = Math.max(0, Math.min(1, (dist - radius * 0.15) / (radius * 0.85)))
+      card.style.filter = `grayscale(${t}) brightness(${1 - t * 0.25})`
+    })
   }
 
   const handleLeave = () => {
-    gsap.to(fadeRef.current, { opacity: 1, duration: fadeOut, overwrite: true })
+    cardRefs.current.forEach(card => {
+      if (!card) return
+      card.style.filter = ''
+    })
   }
 
   const handleCardMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -85,13 +64,14 @@ export function ChromaGrid({
     <div
       ref={rootRef}
       className={`chroma-grid ${className}`}
-      style={{ '--r': `${radius}px`, '--cols': columns } as React.CSSProperties}
+      style={{ '--cols': columns } as React.CSSProperties}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
     >
       {items.map((c, i) => (
         <article
           key={i}
+          ref={el => { cardRefs.current[i] = el }}
           className="chroma-card"
           onMouseMove={handleCardMove}
           onClick={() => c.url && onCardClick?.(c.url)}
@@ -118,8 +98,6 @@ export function ChromaGrid({
           </footer>
         </article>
       ))}
-      <div className="chroma-overlay" />
-      <div ref={fadeRef} className="chroma-fade" />
     </div>
   )
 }
