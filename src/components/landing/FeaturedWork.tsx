@@ -17,7 +17,12 @@ const PALETTE: Record<string, { borderColor: string; gradient: string }> = {
   'bel-platform':        { borderColor: '#818CF8', gradient: 'linear-gradient(210deg, #1a1760 0%, #060518 100%)' },
   'webar-experience':    { borderColor: '#FBBF24', gradient: 'linear-gradient(165deg, #3d2000 0%, #0d0700 100%)' },
   'nexval-fintech':      { borderColor: '#34D399', gradient: 'linear-gradient(225deg, #022d1b 0%, #000603 100%)' },
-  'netbramha-projects':  { borderColor: '#E879F9', gradient: 'linear-gradient(135deg, #2a0830 0%, #090006 100%)' },
+  'netbramha-projects':       { borderColor: '#E879F9', gradient: 'linear-gradient(135deg, #2a0830 0%, #090006 100%)' },
+  'wipro-consumer-lighting':  { borderColor: '#FACC15', gradient: 'linear-gradient(145deg, #2a1f00 0%, #080600 100%)' },
+  'be-beautiful':             { borderColor: '#F9A8D4', gradient: 'linear-gradient(160deg, #3d0a1e 0%, #0d0007 100%)' },
+  'brew-for-you':             { borderColor: '#86EFAC', gradient: 'linear-gradient(150deg, #012810 0%, #000a04 100%)' },
+  'edgeverve':                { borderColor: '#7DD3FC', gradient: 'linear-gradient(195deg, #001c3d 0%, #000509 100%)' },
+  'celegence':                { borderColor: '#C4B5FD', gradient: 'linear-gradient(210deg, #1a0840 0%, #060010 100%)' },
 }
 
 export default function FeaturedWork() {
@@ -37,7 +42,9 @@ export default function FeaturedWork() {
     return () => ctx.revert()
   }, [])
 
-  const items: ChromaItem[] = PROJECTS.map(p => ({
+  const FEATURED = ['ponds-india', 'liquid-iv-australia', 'liquid-iv-canada', 'wipro-consumer-lighting', 'be-beautiful', 'brew-for-you', 'edgeverve', 'celegence']
+
+  const items: ChromaItem[] = PROJECTS.filter(p => FEATURED.includes(p.slug)).sort((a, b) => FEATURED.indexOf(a.slug) - FEATURED.indexOf(b.slug)).map(p => ({
     image:       p.screens?.[0],
     title:       p.title,
     subtitle:    p.client,

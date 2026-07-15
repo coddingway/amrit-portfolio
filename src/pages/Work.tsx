@@ -6,7 +6,7 @@ import { PROJECTS } from '../data/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const FILTERS = ['All', 'E-Commerce', 'Enterprise', 'WebAR', 'UI Dev']
+const FILTERS = ['All', 'E-Commerce', 'WordPress', 'Headless', 'Enterprise', 'WebAR', 'UI Dev']
 
 // ─── Visual backgrounds per project ──────────────────────────────────────────
 function ProjectVisual({ visual }: { visual: string }) {
