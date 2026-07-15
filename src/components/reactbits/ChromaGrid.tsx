@@ -28,7 +28,7 @@ export function ChromaGrid({
   onCardClick,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const cardRefs = useRef<(HTMLArticleElement | null)[]>([])
+  const cardRefs = useRef<(HTMLElement | null)[]>([])
 
   const handleMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const r = rootRef.current!.getBoundingClientRect()
@@ -71,7 +71,7 @@ export function ChromaGrid({
       {items.map((c, i) => (
         <article
           key={i}
-          ref={el => { cardRefs.current[i] = el }}
+          ref={(el: HTMLElement | null) => { cardRefs.current[i] = el }}
           className="chroma-card"
           onMouseMove={handleCardMove}
           onClick={() => c.url && onCardClick?.(c.url)}

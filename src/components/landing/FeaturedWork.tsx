@@ -102,8 +102,6 @@ export default function FeaturedWork() {
           items={items}
           radius={320}
           columns={4}
-          damping={0.45}
-          fadeOut={0.6}
           onCardClick={url => navigate(url)}
         />
       </div>
