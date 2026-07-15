@@ -75,11 +75,13 @@ export default function PhotographyTeaser() {
   const descRef     = useRef<HTMLParagraphElement>(null)
   const countRef    = useRef<HTMLDivElement>(null)
   const ctaRef      = useRef<HTMLDivElement>(null)
-  const photoRefs   = useRef<(HTMLDivElement | null)[]>([])
+  const photoRefs   = useRef<(HTMLElement | null)[]>([])
 
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     // ── Initial hidden state ─────────────────────────────────────────────────
     gsap.set(
@@ -145,7 +147,7 @@ export default function PhotographyTeaser() {
         <div
           className="flex flex-col justify-center"
           style={{
-            padding:     'clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3.5rem)',
+            padding:     'clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 7.5vw, 6rem)',
             borderRight: '1px solid oklch(0.14 0 0)',
           }}
         >
@@ -278,15 +280,16 @@ export default function PhotographyTeaser() {
               columnGap:  '10px',
             }}
           >
-            {PHOTOS.map((photo, i) => (
-              <div
+            {PHOTOS.map((photo, i) => {
+              const instagramUrl = (photo as { instagram?: string }).instagram
+              return (
+              <button
                 key={photo.id}
+                type="button"
                 ref={el => { photoRefs.current[i] = el }}
                 className="group"
-                onClick={() => {
-                  const url = (photo as { instagram?: string }).instagram
-                  if (url) window.open(url, '_blank', 'noopener,noreferrer')
-                }}
+                onClick={instagramUrl ? () => window.open(instagramUrl, '_blank', 'noopener,noreferrer') : undefined}
+                onKeyDown={instagramUrl ? (e) => { if (e.key === 'Enter' || e.key === ' ') window.open(instagramUrl, '_blank', 'noopener,noreferrer') } : undefined}
                 style={{
                   position:    'relative',
                   breakInside: 'avoid',
@@ -295,7 +298,12 @@ export default function PhotographyTeaser() {
                   overflow:    'hidden',
                   background:  (photo as { gradient?: string }).gradient ?? 'oklch(0.12 0 0)',
                   aspectRatio: photo.aspectRatio,
-                  cursor:      (photo as { instagram?: string }).instagram ? 'pointer' : 'default',
+                  cursor:      instagramUrl ? 'pointer' : 'default',
+                  border:      'none',
+                  padding:     0,
+                  display:     'block',
+                  width:       '100%',
+                  textAlign:   'left',
                 }}
               >
                 {/* Real photo — shown when src is provided */}
@@ -391,8 +399,8 @@ export default function PhotographyTeaser() {
                     pointerEvents:   'none',
                   }}
                 />
-              </div>
-            ))}
+              </button>
+            )})}
           </div>
         </div>
       </div>

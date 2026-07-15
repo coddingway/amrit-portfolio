@@ -37,10 +37,10 @@ export default function LoadingScreen({ onComplete }: Props) {
     let ctx: gsap.Context
     let mounted = true
 
-    // Hard cap — always exits after 6s regardless of GSAP / font state
+    // Hard cap — always exits after 3.5s regardless of GSAP / font state
     const hardCap = setTimeout(() => {
       if (mounted) onCompleteRef.current()
-    }, 6000)
+    }, 3500)
 
     document.fonts.ready.then(() => {
       if (!mounted) return
@@ -56,35 +56,34 @@ export default function LoadingScreen({ onComplete }: Props) {
         gsap.set(logoRef.current,   { opacity: 0, scale: 0.82, y: 14 })
 
         // ── Phase 1: brief pause ─────────────────────────────────
-        tl.to({}, { duration: 0.35 })
+        tl.to({}, { duration: 0.1 })
 
         // ── Phase 2: pen tip appears ─────────────────────────────
-        tl.to(penRef.current, { opacity: 1, duration: 0.12 })
+        tl.to(penRef.current, { opacity: 1, duration: 0.08 })
 
         // ── Phase 3: write "hello." ──────────────────────────────
-        //    clip reveal + pen move in lockstep
         tl.to(textRef.current, {
           clipPath: 'inset(0 0% 0 0)',
-          duration: 1.75,
+          duration: 0.85,
           ease: 'power2.inOut',
         })
         tl.to(penRef.current, {
           left: '100%',
-          duration: 1.75,
+          duration: 0.85,
           ease: 'power2.inOut',
         }, '<')
 
         // ── Phase 4: pen tip fades ───────────────────────────────
-        tl.to(penRef.current, { opacity: 0, duration: 0.18 })
+        tl.to(penRef.current, { opacity: 0, duration: 0.1 })
 
         // ── Phase 5: hold on "hello." ────────────────────────────
-        tl.to({}, { duration: 0.42 })
+        tl.to({}, { duration: 0.15 })
 
         // ── Phase 6: "hello." lifts and fades ───────────────────
         tl.to(textWrapRef.current, {
           opacity: 0,
-          y: -22,
-          duration: 0.48,
+          y: -18,
+          duration: 0.28,
           ease: 'power2.in',
         })
 
@@ -93,17 +92,17 @@ export default function LoadingScreen({ onComplete }: Props) {
           opacity: 1,
           scale: 1,
           y: 0,
-          duration: 0.65,
+          duration: 0.38,
           ease: 'power3.out',
         })
 
         // ── Phase 8: hold on logo ────────────────────────────────
-        tl.to({}, { duration: 0.55 })
+        tl.to({}, { duration: 0.18 })
 
-        // ── Phase 9: everything fades to black ───────────────────
+        // ── Phase 9: everything fades out ────────────────────────
         tl.to(containerRef.current, {
           opacity: 0,
-          duration: 0.6,
+          duration: 0.35,
           ease: 'power2.inOut',
         })
       })

@@ -39,6 +39,10 @@ const ALL_PHOTOS: Photo[] = [
 
 const FILTERS = ['All', 'Street', 'Nature', 'Architecture', 'Travel']
 
+function countsByFilter(f: string) {
+  return f === 'All' ? ALL_PHOTOS.length : ALL_PHOTOS.filter(p => p.cat === f).length
+}
+
 // ── Lightbox ───────────────────────────────────────────────────────────────────
 interface LightboxProps {
   photos:     Photo[]
@@ -48,13 +52,17 @@ interface LightboxProps {
 }
 
 function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
-  const overlayRef  = useRef<HTMLDivElement>(null)
+  const overlayRef  = useRef<HTMLDialogElement>(null)
   const contentRef  = useRef<HTMLDivElement>(null)
   const photo = photos[index]
 
   // Animate in on mount
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set([overlayRef.current, contentRef.current], { opacity: 1, scale: 1, y: 0 })
+        return
+      }
       gsap.fromTo(overlayRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.3, ease: 'power2.out' },
@@ -87,18 +95,18 @@ function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
   const imgUrl = `https://picsum.photos/seed/${photo.seed}/${photo.w}/${photo.h}`
 
   return (
-    <div
+    <dialog
       ref={overlayRef}
-      role="dialog"
-      aria-modal="true"
+      open
       aria-label={photo.title}
-      className="fixed inset-0 z-[9998] flex items-center justify-center px-4 py-10"
+      className="fixed inset-0 z-[9998] flex items-center justify-center px-4 py-10 border-none m-0 max-w-none max-h-none w-full h-full p-8"
       style={{ background: 'oklch(0.02 0 0 / 0.94)', backdropFilter: 'blur(14px)' }}
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
       <div ref={contentRef} className="relative w-full max-w-5xl flex flex-col items-center">
         {/* Close button */}
         <button
+          type="button"
           onClick={onClose}
           aria-label="Close"
           className="absolute -top-2 right-0 flex items-center justify-center w-10 h-10 rounded-full text-muted hover:text-text-primary transition-colors"
@@ -145,6 +153,7 @@ function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
       {/* Prev */}
       {index > 0 && (
         <button
+          type="button"
           onClick={() => onNavigate(index - 1)}
           aria-label="Previous photo"
           className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full text-text-primary transition-opacity"
@@ -159,6 +168,7 @@ function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
       {/* Next */}
       {index < photos.length - 1 && (
         <button
+          type="button"
           onClick={() => onNavigate(index + 1)}
           aria-label="Next photo"
           className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full text-text-primary transition-opacity"
@@ -169,7 +179,7 @@ function Lightbox({ photos, index, onClose, onNavigate }: LightboxProps) {
           →
         </button>
       )}
-    </div>
+    </dialog>
   )
 }
 
@@ -184,25 +194,25 @@ function PhotoCard({ photo, onClick }: CardProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
 
   const handleEnter = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.to(imgRef.current,     { scale: 1.05, filter: 'grayscale(0%)',   duration: 0.55, ease: 'power2.out' })
     gsap.to(overlayRef.current, { opacity: 1,                             duration: 0.30 })
   }
   const handleLeave = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.to(imgRef.current,     { scale: 1,    filter: 'grayscale(22%)',  duration: 0.55, ease: 'power2.out' })
     gsap.to(overlayRef.current, { opacity: 0,                             duration: 0.30 })
   }
 
   return (
-    <div
+    <button
+      type="button"
       data-photo-card
-      role="button"
-      tabIndex={0}
       onClick={onClick}
-      onKeyDown={e => e.key === 'Enter' && onClick()}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className="relative overflow-hidden cursor-pointer mb-4 rounded-[2px]"
-      style={{ breakInside: 'avoid' }}
+      className="relative overflow-hidden cursor-pointer mb-4 rounded-[2px] w-full text-left"
+      style={{ breakInside: 'avoid', border: 'none', padding: 0, background: 'none', display: 'block' }}
     >
       {/* Image */}
       <img
@@ -241,7 +251,7 @@ function PhotoCard({ photo, onClick }: CardProps) {
         </div>
         <div className="text-muted text-xs mt-0.5">{photo.location}</div>
       </div>
-    </div>
+    </button>
   )
 }
 
@@ -258,6 +268,7 @@ export default function PhotoMasonry() {
   // Stagger-entrance every time the filter (and therefore the DOM) changes
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const cards = galleryRef.current?.querySelectorAll<HTMLElement>('[data-photo-card]')
       if (!cards || cards.length === 0) return
       gsap.fromTo(
@@ -272,6 +283,7 @@ export default function PhotoMasonry() {
   // Filter: animate out → change state
   const handleFilter = useCallback((f: string) => {
     if (f === activeFilter) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setActiveFilter(f); return }
     const cards = galleryRef.current?.querySelectorAll<HTMLElement>('[data-photo-card]')
     if (cards && cards.length > 0) {
       gsap.to(Array.from(cards), {
@@ -284,12 +296,9 @@ export default function PhotoMasonry() {
     }
   }, [activeFilter])
 
-  const counts = (f: string) =>
-    f === 'All' ? ALL_PHOTOS.length : ALL_PHOTOS.filter(p => p.cat === f).length
-
   return (
     <section
-      className="px-4 md:px-8 lg:px-16 pb-28 pt-12"
+      className="px-6 md:px-14 lg:px-24 pb-28 pt-12"
       style={{ background: 'oklch(0.04 0.002 50)' }}
     >
       {/* ── Filter bar ── */}
@@ -299,6 +308,7 @@ export default function PhotoMasonry() {
           return (
             <button
               key={f}
+              type="button"
               onClick={() => handleFilter(f)}
               className="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-250 flex items-center gap-1.5"
               style={
@@ -315,7 +325,7 @@ export default function PhotoMasonry() {
               <span
                 className="text-xs tabular-nums opacity-60"
               >
-                {counts(f)}
+                {countsByFilter(f)}
               </span>
             </button>
           )

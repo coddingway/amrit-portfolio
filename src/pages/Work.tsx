@@ -303,7 +303,7 @@ export default function Work() {
       {/* ── Page header ──────────────────────────────────────────────────── */}
       <div
         ref={headerRef}
-        style={{ padding: 'clamp(1rem, 3vw, 2rem) clamp(1.5rem, 5vw, 5rem) clamp(2rem, 4vw, 3rem)' }}
+        style={{ padding: 'clamp(1rem, 3vw, 2rem) clamp(1.5rem, 7.5vw, 6rem) clamp(2rem, 4vw, 3rem)' }}
       >
         <p style={{
           fontSize:'0.68rem', fontWeight:700, letterSpacing:'0.25em',
@@ -341,6 +341,7 @@ export default function Work() {
             {FILTERS.map(f => (
               <button
                 key={f}
+                type="button"
                 onClick={() => setActiveFilter(f)}
                 style={{
                   padding:       '0.42rem 1rem',
@@ -352,7 +353,7 @@ export default function Work() {
                   fontWeight:    600,
                   letterSpacing: '0.04em',
                   cursor:        'pointer',
-                  transition:    'all 0.18s',
+                  transition:    'border-color 0.18s, background 0.18s, color 0.18s',
                 }}
               >
                 {f}
@@ -366,7 +367,7 @@ export default function Work() {
       <div
         ref={gridRef}
         style={{
-          padding:               '0 clamp(1.5rem, 5vw, 5rem) clamp(4rem, 8vw, 6rem)',
+          padding:               '0 clamp(1.5rem, 7.5vw, 6rem) clamp(4rem, 8vw, 6rem)',
           display:               'grid',
           gridTemplateColumns:   'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
           gap:                   '1rem',
@@ -385,7 +386,7 @@ export default function Work() {
       {/* ── CTA strip ────────────────────────────────────────────────────── */}
       <div style={{
         borderTop:  '1px solid oklch(0.14 0 0)',
-        padding:    'clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 5rem)',
+        padding:    'clamp(2rem, 4vw, 3rem) clamp(1.5rem, 7.5vw, 6rem)',
         display:    'flex',
         flexWrap:   'wrap',
         alignItems: 'center',

@@ -189,7 +189,7 @@ export default function WorkDetail() {
           style={{
             position:       'absolute',
             top:            'clamp(4.5rem, 8vw, 6rem)',
-            left:           'clamp(1.5rem, 5vw, 5rem)',
+            left:           'clamp(1.5rem, 7.5vw, 6rem)',
             zIndex:         3,
             display:        'inline-flex',
             alignItems:     'center',
@@ -216,8 +216,8 @@ export default function WorkDetail() {
         <div style={{
           position: 'absolute',
           bottom:   'clamp(1.5rem, 3vw, 2.5rem)',
-          left:     'clamp(1.5rem, 5vw, 5rem)',
-          right:    'clamp(1.5rem, 5vw, 5rem)',
+          left:     'clamp(1.5rem, 7.5vw, 6rem)',
+          right:    'clamp(1.5rem, 7.5vw, 6rem)',
           zIndex:   3,
         }}>
           <span style={{
@@ -264,7 +264,7 @@ export default function WorkDetail() {
             key={item.label}
             style={{
               flex:        '1 1 180px',
-              padding:     'clamp(1rem, 2.5vw, 1.5rem) clamp(1.5rem, 5vw, 5rem)',
+              padding:     'clamp(1rem, 2.5vw, 1.5rem) clamp(1.5rem, 7.5vw, 6rem)',
               borderRight: i < arr.length - 1 ? '1px solid oklch(0.14 0 0)' : 'none',
             }}
           >
@@ -335,9 +335,9 @@ export default function WorkDetail() {
             ref={resultsRef}
             style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(160px, 1fr))', gap:'1rem' }}
           >
-            {project.results.map((r, i) => (
+            {project.results.map((r) => (
               <div
-                key={i}
+                key={r.label}
                 data-result
                 style={{
                   ...GLASS,
@@ -419,7 +419,7 @@ export default function WorkDetail() {
           <TransitionLink
             to={`/work/${prev.slug}`}
             style={{
-              padding:        'clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 5rem)',
+              padding:        'clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 7.5vw, 6rem)',
               borderRight:    next ? '1px solid oklch(0.14 0 0)' : 'none',
               textDecoration: 'none',
               display:        'block',
@@ -437,7 +437,7 @@ export default function WorkDetail() {
           <TransitionLink
             to={`/work/${next.slug}`}
             style={{
-              padding:        'clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 5rem)',
+              padding:        'clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 7.5vw, 6rem)',
               textDecoration: 'none',
               display:        'block',
               textAlign:      prev ? 'right' : 'left',
@@ -456,7 +456,7 @@ export default function WorkDetail() {
       {/* ── CTA ──────────────────────────────────────────────────────────── */}
       <div style={{
         borderTop:  '1px solid oklch(0.14 0 0)',
-        padding:    'clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 5rem)',
+        padding:    'clamp(2rem, 4vw, 3rem) clamp(1.5rem, 7.5vw, 6rem)',
         display:    'flex',
         flexWrap:   'wrap',
         alignItems: 'center',

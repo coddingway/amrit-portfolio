@@ -10,6 +10,17 @@ gsap.registerPlugin(ScrollTrigger)
 // https://calendly.com/your-username
 const CALENDLY_URL = 'https://calendly.com/amritpodder'
 
+const CURRENT_YEAR = new Date().getFullYear()
+
+function openCalendlyPopup() {
+  const w = window as Window & { Calendly?: { initPopupWidget: (o: { url: string }) => void } }
+  if (w.Calendly) {
+    w.Calendly.initPopupWidget({ url: CALENDLY_URL })
+  } else {
+    window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')
+  }
+}
+
 // ─── Social links ────────────────────────────────────────────────────────────
 const SOCIALS = [
   {
@@ -79,17 +90,7 @@ function useCalendly() {
     }
   }, [])
 
-  const openPopup = () => {
-    const w = window as Window & { Calendly?: { initPopupWidget: (o: { url: string }) => void } }
-    if (w.Calendly) {
-      w.Calendly.initPopupWidget({ url: CALENDLY_URL })
-    } else {
-      // Fallback: open in new tab
-      window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')
-    }
-  }
-
-  return { ready, openPopup }
+  return { ready }
 }
 
 export default function LandingFooter() {
@@ -102,7 +103,7 @@ export default function LandingFooter() {
   const dividerRef   = useRef<HTMLDivElement>(null)
   const bottomRef    = useRef<HTMLDivElement>(null)
 
-  const { openPopup } = useCalendly()
+  const { ready: _calendlyReady } = useCalendly()
 
   useEffect(() => {
     const section = sectionRef.current
@@ -259,7 +260,8 @@ export default function LandingFooter() {
         >
           {/* Book a call — Calendly popup */}
           <button
-            onClick={openPopup}
+            type="button"
+            onClick={openCalendlyPopup}
             style={{
               display:        'inline-flex',
               alignItems:     'center',
@@ -393,7 +395,7 @@ export default function LandingFooter() {
       {/* ── Tools credit ─────────────────────────────────────────────────────── */}
       <div
         ref={bottomRef}
-        style={{ padding: '0 clamp(1.5rem, 5vw, 4rem)', textAlign: 'center' }}
+        style={{ padding: '0 clamp(1.5rem, 7.5vw, 6rem)', textAlign: 'center' }}
       >
         <p style={{ fontSize: '0.68rem', color: '--color-muted', lineHeight: 1.6 }}>
           Built with{' '}
@@ -434,14 +436,14 @@ export default function LandingFooter() {
 
       {/* ── Copyright line ─────────────────────────────────────────────────────── */}
       <div style={{
-        padding:        '2.6rem clamp(1.5rem, 5vw, 4rem) clamp(1.2rem, 3vw, 1.8rem)',
+        padding:        '2.6rem clamp(1.5rem, 7.5vw, 6rem) clamp(1.2rem, 3vw, 1.8rem)',
         display:        'flex',
         justifyContent: 'space-between',
         flexWrap:       'wrap',
         gap:            '0.5rem',
       }}>
         <p style={{ fontSize: '0.75rem' }}>
-          © {new Date().getFullYear()} Amrit Podder · All rights reserved.
+          © {CURRENT_YEAR} Amrit Podder · All rights reserved.
         </p>
         <nav style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap' }}>
           {NAV_LINKS.map(l => (

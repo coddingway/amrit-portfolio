@@ -214,7 +214,7 @@ export default function FootballTeaser() {
         <div
           ref={leftRef}
           className="flex flex-col justify-center"
-          style={{ padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem)' }}
+          style={{ padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 7.5vw, 6rem)' }}
         >
           {/* Eyebrow */}
           <p style={{

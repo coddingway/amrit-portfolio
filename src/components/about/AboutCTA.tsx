@@ -44,7 +44,7 @@ export default function AboutCTA() {
       ref={sectionRef}
       aria-label="Contact CTA"
       style={{
-        padding:    'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 5rem)',
+        padding:    'clamp(4rem, 8vw, 6rem) clamp(1.5rem, 7.5vw, 6rem)',
         background: `radial-gradient(ellipse 70% 60% at 50% 50%,
                        oklch(0.72 0.18 50 / 0.06), transparent 70%),
                      oklch(0.05 0.005 50)`,
@@ -118,6 +118,7 @@ export default function AboutCTA() {
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
           <button
+            type="button"
             onClick={openCalendly}
             style={{
               display:       'inline-flex',

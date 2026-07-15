@@ -140,7 +140,7 @@ export default function StatsStrip() {
       ref={sectionRef}
       aria-label="Career highlights"
     >
-      {/* ── Top rule ────────────────────────────────────────────────────────── */}
+      {/* Top rule */}
       <div
         style={{
           height:     '1px',
@@ -148,13 +148,14 @@ export default function StatsStrip() {
         }}
       />
 
-      {/* ── Stats grid ──────────────────────────────────────────────────────── */}
+      {/* Stats grid */}
+      <div className="px-6 md:px-14 lg:px-24">
       <div className="grid grid-cols-2 md:grid-cols-4">
         {STATS.map((stat, i) => (
           <div
             key={stat.label}
             ref={el => { cardRefs.current[i] = el }}
-            className="relative flex flex-col items-start px-6 py-10 md:px-10 md:py-12 group"
+            className="relative flex flex-col items-start py-10 md:py-12 group"
             style={{
               // Vertical dividers between columns (not after last)
               borderRight: i < STATS.length - 1
@@ -233,8 +234,9 @@ export default function StatsStrip() {
           </div>
         ))}
       </div>
+      </div>
 
-      {/* ── Bottom rule ─────────────────────────────────────────────────────── */}
+      {/* Bottom rule */}
       <div
         style={{
           height:     '1px',

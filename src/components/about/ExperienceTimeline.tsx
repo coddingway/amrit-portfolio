@@ -129,7 +129,7 @@ export default function ExperienceTimeline() {
       ref={sectionRef}
       aria-label="Work experience"
       style={{
-        padding:    'clamp(4rem, 8vw, 6.5rem) clamp(1.5rem, 5vw, 5rem)',
+        padding:    'clamp(4rem, 8vw, 6.5rem) clamp(1.5rem, 7.5vw, 6rem)',
         background: `radial-gradient(ellipse 50% 60% at 20% 50%,
                        oklch(0.72 0.18 50 / 0.04), transparent 70%),
                      oklch(0.06 0.005 50)`,
@@ -193,7 +193,7 @@ export default function ExperienceTimeline() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem', paddingLeft: '2.6rem' }}>
           {EXPERIENCE.map((exp, i) => (
             <div
-              key={i}
+              key={exp.company}
               ref={el => { cardsRef.current[i] = el }}
               style={{ position: 'relative' }}
             >

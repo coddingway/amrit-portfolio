@@ -28,6 +28,8 @@ const MARQUEE_ITEMS = [
   'FCB', '⚽', 'SINCE 2002', '★', 'MIA SAN MIA',
 ]
 
+const MARQUEE_DOUBLED = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS]
+
 function MarqueeStrip() {
   const trackRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -36,8 +38,6 @@ function MarqueeStrip() {
     })
     return () => { tween.kill() }
   }, [])
-
-  const items = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS]
   return (
     <div style={{
       overflow:   'hidden',
@@ -47,7 +47,7 @@ function MarqueeStrip() {
       padding:    '0.7rem 0',
     }}>
       <div ref={trackRef} style={{ display:'flex', width:'max-content', gap: '2rem' }}>
-        {items.map((item, i) => (
+        {MARQUEE_DOUBLED.map((item, i) => (
           <span key={i} style={{
             fontSize:      '0.72rem',
             fontWeight:    800,
@@ -148,7 +148,7 @@ export default function Football() {
         ref={heroRef}
         aria-label="Football hero"
         style={{
-          padding:  'clamp(2rem,5vw,4rem) clamp(1.5rem,5vw,5rem)',
+          padding:  'clamp(2rem,5vw,4rem) clamp(1.5rem,7.5vw,6rem)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -273,7 +273,7 @@ export default function Football() {
       {/* ── STATS WALL ──────────────────────────────────────────────────── */}
       <section
         aria-label="Fan stats"
-        style={{ padding:'clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)' }}
+        style={{ padding:'clamp(3rem,6vw,5rem) clamp(1.5rem,7.5vw,6rem)' }}
       >
         <p data-fade style={{
           fontSize:'0.65rem', fontWeight:700, letterSpacing:'0.22em',
@@ -294,7 +294,7 @@ export default function Football() {
       <section
         aria-label="Bayern Munich"
         style={{
-          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)',
+          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,7.5vw,6rem)',
           borderTop:  `2.5px solid ${RD}`,
         }}
       >
@@ -365,8 +365,8 @@ export default function Football() {
               Trophy cabinet
             </p>
             <div style={{ display:'flex', flexDirection:'column', gap:'0.7rem' }}>
-              {TROPHIES.map((t, i) => (
-                <div key={i} style={{
+              {TROPHIES.map((t) => (
+                <div key={t.name} style={{
                   display:'flex', alignItems:'center', gap:'1rem',
                   padding:'0.9rem 1.1rem',
                   ...neo(),
@@ -408,7 +408,7 @@ export default function Football() {
       <section
         aria-label="German national team"
         style={{
-          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)',
+          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,7.5vw,6rem)',
           borderTop:  `2.5px solid ${RD}`,
           background: `linear-gradient(135deg, oklch(0.06 0.02 28) 0%, oklch(0.05 0.01 28) 100%)`,
         }}
@@ -488,7 +488,7 @@ export default function Football() {
       <section
         aria-label="Football timeline"
         style={{
-          padding:   'clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)',
+          padding:   'clamp(3rem,6vw,5rem) clamp(1.5rem,7.5vw,6rem)',
           borderTop: `2.5px solid ${RD}`,
         }}
       >
@@ -507,9 +507,9 @@ export default function Football() {
           }}/>
 
           <div style={{ display:'flex', flexDirection:'column', gap:'0' }}>
-            {TIMELINE.map((item, i) => (
+            {TIMELINE.map((item) => (
               <div
-                key={i}
+                key={item.year}
                 data-fade
                 style={{
                   display:   'flex',
@@ -571,7 +571,7 @@ export default function Football() {
       <section
         aria-label="Football CTA"
         style={{
-          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem)',
+          padding:    'clamp(3rem,6vw,5rem) clamp(1.5rem,7.5vw,6rem)',
           borderTop:  `2.5px solid ${RD}`,
           display:    'flex',
           flexWrap:   'wrap',

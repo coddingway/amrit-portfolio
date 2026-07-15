@@ -76,7 +76,7 @@ export default function EducationSection() {
       ref={sectionRef}
       aria-label="Education and certifications"
       style={{
-        padding:    'clamp(4rem, 8vw, 6.5rem) clamp(1.5rem, 5vw, 5rem)',
+        padding:    'clamp(4rem, 8vw, 6.5rem) clamp(1.5rem, 7.5vw, 6rem)',
         background: `radial-gradient(ellipse 60% 55% at 80% 50%,
                        oklch(0.72 0.18 50 / 0.04), transparent 70%),
                      oklch(0.055 0.005 50)`,
@@ -143,9 +143,9 @@ export default function EducationSection() {
             Education
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-            {EDUCATION.map((ed, i) => (
+            {EDUCATION.map((ed) => (
               <div
-                key={i}
+                key={ed.school + ed.degree}
                 style={{
                   ...GLASS,
                   borderRadius: '0.9rem',
@@ -199,9 +199,9 @@ export default function EducationSection() {
             Certifications
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-            {CERTIFICATIONS.map((cert, i) => (
+            {CERTIFICATIONS.map((cert) => (
               <div
-                key={i}
+                key={cert.name}
                 style={{
                   ...GLASS,
                   borderRadius: '0.9rem',
