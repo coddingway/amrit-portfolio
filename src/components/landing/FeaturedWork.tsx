@@ -35,6 +35,7 @@ export default function FeaturedWork() {
         { opacity: 0, y: 24 },
         {
           opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          clearProps: 'transform',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true },
         }
       )
