@@ -100,19 +100,22 @@ export default function HeroSection() {
         {/* ── Left — Text ────────────────────────────────────────────────── */}
         <div className="flex flex-col justify-center flex-1 w-full">
 
-          {/* Greeting */}
-          <div className="overflow-hidden mb-3">
+          {/* Eyebrow */}
+          <div className="overflow-hidden mb-4">
             <span
               ref={greetRef}
               style={{
-                display:    'block',
-                fontFamily: "'Great Vibes', cursive",
-                fontSize:   'clamp(1.6rem, 3.2vw, 2.5rem)',
-                color:      'var(--accent)',
-                lineHeight: 1,
+                display:       'block',
+                fontFamily:    "'Inter', sans-serif",
+                fontWeight:    500,
+                fontSize:      'clamp(0.62rem, 1.1vw, 0.72rem)',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                color:         'var(--accent)',
+                lineHeight:    1,
               }}
             >
-              Hi, I'm
+              From Notepad to AI agents
             </span>
           </div>
 
@@ -214,7 +217,8 @@ export default function HeroSection() {
           >
             From Notepad to AI agents. 8 years shipping products for HUL,
             Infosys, and Wipro — across India, Canada, and Australia.
-            The web I build converts. Still learning.
+            The web I build converts.{' '}
+            <span style={{ fontStyle: 'italic', color: 'oklch(0.50 0 0)' }}>Still learning.</span>
           </p>
 
           {/* CTA */}

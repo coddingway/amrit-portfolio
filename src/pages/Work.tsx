@@ -200,9 +200,9 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
           {project.title}
         </h3>
         <p style={{
-          fontSize:     '0.78rem',
-          color:        'oklch(0.60 0 0)',
-          lineHeight:   1.55,
+          fontSize:     '0.82rem',
+          color:        'oklch(0.80 0 0)',
+          lineHeight:   1.6,
           marginBottom: '1rem',
         }}>
           {project.desc}
