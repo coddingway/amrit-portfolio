@@ -212,9 +212,9 @@ export default function HeroSection() {
             className="max-w-sm md:max-w-md text-sm md:text-base font-light mb-10"
             style={{ color: 'var(--color-muted)', lineHeight: 1.75, opacity: 0 }}
           >
-            8+ years crafting digital products that live at the intersection
-            of design precision and engineering excellence — on time, and
-            looking sharp.
+            From Notepad to AI agents. 8 years shipping products for HUL,
+            Infosys, and Wipro — across India, Canada, and Australia.
+            The web I build converts. Still learning.
           </p>
 
           {/* CTA */}
@@ -336,18 +336,24 @@ function PhotoCard() {
     })
   }
 
+  const handleMouseEnter = () => {
+    if (cardRef.current) cardRef.current.style.willChange = 'transform'
+  }
+
   const handleMouseLeave = () => {
     gsap.to(cardRef.current, {
       rotateY: 0,
       rotateX: 0,
       duration: 0.6,
       ease: 'power3.out',
+      onComplete: () => { if (cardRef.current) cardRef.current.style.willChange = 'auto' },
     })
   }
 
   return (
     <div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -362,7 +368,6 @@ function PhotoCard() {
         boxShadow:       '0 0 80px oklch(0.72 0.18 50 / 0.12), 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 oklch(1 0 0 / 0.06)',
         transformStyle:  'preserve-3d',
         cursor:          'default',
-        willChange:      'transform',
       }}
     >
       {/* Photo */}
@@ -395,8 +400,8 @@ function PhotoCard() {
         flexDirection: 'column',
         gap:      '0.5rem',
       }}>
-        <Chip label="8+ yrs exp." />
-        <Chip label="50+ projects" />
+        <Chip label="35% conv. lift" />
+        <Chip label="98% retention" />
       </div>
 
       {/* Accent glow — top right */}
@@ -436,7 +441,7 @@ function PhotoCard() {
           fontWeight: 500,
           marginBottom: '0.25rem',
         }}>
-          Frontend Lead · NetBramha Studio
+          Frontend Lead · Design Engineer
         </p>
         <p style={{ fontSize: '0.65rem', color: '--color-muted' }}>
           📍 Bengaluru, India
