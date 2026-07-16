@@ -1,7 +1,9 @@
 import HeroSection from '../components/hero/HeroSection'
 import StatsStrip from '../components/landing/StatsStrip'
+import TransformationStory from '../components/landing/TransformationStory'
 import ClientLogoStrip from '../components/landing/ClientLogoStrip'
 import FeaturedWork from '../components/landing/FeaturedWork'
+import AiStance from '../components/landing/AiStance'
 import SkillsCarousel from '../components/landing/SkillsCarousel'
 import FootballTeaser from '../components/landing/FootballTeaser'
 import PhotographyTeaser from '../components/landing/PhotographyTeaser'
@@ -23,8 +25,10 @@ export default function Landing() {
     <main>
       <HeroSection />
       <StatsStrip />
+      <TransformationStory />
       <ClientLogoStrip />
       <FeaturedWork />
+      <AiStance />
       <SkillsCarousel />
       <FootballTeaser />
       <PhotographyTeaser />
