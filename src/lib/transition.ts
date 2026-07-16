@@ -41,7 +41,13 @@ export async function transitionTo(
 
   if (_overlay) {
     await new Promise<void>(resolve => {
-      gsap.timeline({ onComplete: resolve })
+      _overlay!.style.willChange = 'transform'
+      gsap.timeline({
+        onComplete: () => {
+          _overlay!.style.willChange = 'auto'
+          resolve()
+        },
+      })
         // Phase 1: curtain drops IN (above → centre)
         .to(_overlay, {
           y:        '0%',

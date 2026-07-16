@@ -35,6 +35,7 @@ export default function HlsVideo({ className = '', flip = false }: HlsVideoProps
   return (
     <video
       ref={videoRef}
+      aria-label="Background video"
       autoPlay
       muted
       loop

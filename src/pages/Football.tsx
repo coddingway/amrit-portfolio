@@ -228,7 +228,9 @@ export default function Football() {
                 maxWidth:  '42ch',
               }}>
                 Fan since 2002. Bayern Munich die-hard. German national team faithful.
-                Football isn't a hobby — it's the soundtrack to everything else.
+                I watch football the same way I review code — looking for what's off the
+                scoresheet but made the difference. xG. Off-ball movement. Press triggers.
+                The unsexy stuff that wins titles.
               </p>
               {/* Stats row */}
               <div style={{ display:'flex', gap:'0.6rem', flexWrap:'wrap', marginTop:'1.5rem' }}>
@@ -351,7 +353,9 @@ export default function Football() {
 
               <p style={{ fontSize:'0.85rem', color:'oklch(0.52 0 0)', lineHeight:1.70 }}>
                 Not just a club — a way of life. <em style={{ color:RL }}>"Mia san mia"</em> — we are who we are.
-                Bayern's relentless pursuit of excellence is something I try to carry into my work every day.
+                Bayern's obsession with off-ball movement — creating space before the ball
+                arrives — is something I've imported into how I build. Good architecture
+                creates options before the requirement lands. Same principle.
               </p>
             </div>
           </div>
@@ -444,8 +448,10 @@ export default function Football() {
             </h2>
             <p style={{ fontSize:'0.88rem', color:'oklch(0.52 0 0)', lineHeight:1.72, maxWidth:'48ch', marginBottom:'1.2rem' }}>
               The German national team grabbed me at the 2006 World Cup on home soil.
-              The 2014 World Cup in Brazil — that 7–1 semi-final — is the greatest football
-              moment I've ever witnessed. Pure, clinical, historic.
+              The 2014 Brazil campaign — that 7–1 semi-final — is the greatest football
+              moment I've ever witnessed. Pure, clinical, historic. But what I remember
+              most isn't the goals. It's the pressing shape that made Brazil's midfield
+              invisible before halftime. That's xG thinking before the term existed.
             </p>
             <div style={{ display:'flex', gap:'0.6rem', flexWrap:'wrap' }}>
               {['World Cup 2014 🏆','7–1 Brazil','Lahm · Müller · Kroos','Bundesliga pipeline'].map(tag => (

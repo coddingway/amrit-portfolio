@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 const STATS = [
   { value: '20+', label: 'Years Experience' },
@@ -12,7 +12,7 @@ export default function Stats() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {STATS.map((stat, i) => (
-            <motion.div
+            <m.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ export default function Stats() {
               <span className="text-sm text-muted uppercase tracking-[0.2em]">
                 {stat.label}
               </span>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

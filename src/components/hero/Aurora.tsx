@@ -85,6 +85,7 @@ export default function Aurora() {
     <canvas
       ref={canvasRef}
       aria-hidden
+      tabIndex={-1}
       style={{
         position:      'absolute',
         inset:         0,

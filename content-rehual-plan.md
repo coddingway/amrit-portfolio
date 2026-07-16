@@ -460,15 +460,19 @@ is actively weakening the new content — not a redesign.
 
 1. **Hero copy** ✅ done — descriptor, chips, name tag updated
 2. **Impact Bar** ✅ done — stats strip now shows 35% / 45% / 98% / 50+ outcomes
-3. **Hero UI micro-tweaks** — "Hi, I'm" eyebrow, "Still learning." styling
-4. **Work section card copy** — reframe all project descriptions in projects.ts
-5. **Work cards typography** — visual hierarchy between outcome and brand name
-6. **Transformation story** — Notepad → AI narrative section
-7. **AI Native Stance** — the differentiator section
-8. **Case study Before/After blocks** — per WorkDetail page, wherever data exists
-9. **Contact reframe** — filters quality leads
-10. **Stack Story** — replaces skills list
-11. **Football/Photography voice** — deepen the nerd angle
+3. **Hero UI micro-tweaks** ✅ done — eyebrow "FROM NOTEPAD TO AI AGENTS", "Still learning." italic/dim
+4. **Work section card copy** ✅ done — all 30 project desc fields rewritten outcome-first
+5. **Work cards typography** ✅ done — desc brighter (oklch 0.80), larger (0.82rem)
+6. **Transformation story** ✅ done — TransformationStory.tsx, 6-milestone scroll timeline
+7. **AI Native Stance** ✅ done — AiStance.tsx, "I vibe code. I also know why the vibe was wrong."
+8. **Case study Before/After slider** ✅ done — BeforeAfterSlider wired into all WorkDetail pages
+   - ⚠️ **TODO (Amrit):** Add real before/after screenshots per project
+   - In `src/data/projects.ts`, set `beforeImage` and `afterImage` fields with paths like `/projects/ponds/before.png`
+   - Put images in `/public/projects/<slug>/before.png` and `after.png`
+   - Projects with conversion data to prioritise: ponds-india, liquid-iv-canada, liquid-iv-australia, celegence, wipro-consumer-lighting
+9. **Contact reframe** ✅ done — new headline, "not the right fit" filter block
+10. **Football/Photography voice** ✅ done — xG/off-ball parallel, photography caption deepened
+11. **Stack Story** — replaces skills list (future phase)
 
 ---
 

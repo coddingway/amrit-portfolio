@@ -97,8 +97,10 @@ export default function PhotographyHero() {
           style={{ maxWidth: '52rem' }}
         >
           <p className="text-muted text-base md:text-lg leading-relaxed" style={{ maxWidth: '34rem' }}>
+            What's in focus? What's not? Why?<br/>
             Streets, nature &amp; fleeting moments — captured across India and beyond.
-            Photography is how I slow down and truly see.
+            Photography is how I practice the same deliberate eye I bring to UI work:
+            noticing what belongs and what doesn't.
           </p>
           <div className="flex-shrink-0 sm:text-right">
             <div

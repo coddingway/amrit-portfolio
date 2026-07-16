@@ -24,6 +24,9 @@ export interface Project {
   results:   { value: string; label: string }[]
   // Optional: add screenshot src paths here when ready
   screens?:  string[]
+  // Before/after slider — supply real images when ready (see content-rehual-plan.md)
+  beforeImage?: string
+  afterImage?:  string
 }
 
 export const PROJECTS: Project[] = [

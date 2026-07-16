@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SectionHeader from './SectionHeader'
 
 const PROJECTS = [
@@ -43,7 +43,7 @@ export default function SelectedWorks() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
           {PROJECTS.map((project, i) => (
-            <motion.div
+            <m.div
               key={project.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function SelectedWorks() {
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

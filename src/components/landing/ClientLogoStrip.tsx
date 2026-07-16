@@ -44,6 +44,7 @@ export default function ClientLogoStrip() {
     const track = trackRef.current
     if (!track) return
 
+    track.style.willChange = 'transform'
     const totalWidth = track.scrollWidth / 3   // 3 copies
     const tween = gsap.to(track, {
       x:        -totalWidth,
@@ -60,6 +61,7 @@ export default function ClientLogoStrip() {
 
     return () => {
       tween.kill()
+      track.style.willChange = 'auto'
       track.removeEventListener('mouseenter', pause)
       track.removeEventListener('mouseleave', resume)
     }
@@ -121,7 +123,6 @@ export default function ClientLogoStrip() {
             alignItems: 'center',
             gap:        'clamp(3rem, 6vw, 5rem)',
             width:      'max-content',
-            willChange: 'transform',
           }}
         >
           {TICKER.map((c, i) => (

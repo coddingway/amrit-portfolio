@@ -39,6 +39,7 @@ export default function Explorations() {
   const [lightbox, setLightbox] = useState<string | null>(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       // Pin the center content
       if (contentRef.current) {
@@ -104,8 +105,8 @@ export default function Explorations() {
             <p className="text-sm md:text-base text-muted max-w-md mx-auto mb-8">
               Experimental work exploring form, color, and motion.
             </p>
-            <a
-              href="#"
+            <button
+              type="button"
               className="group relative inline-flex items-center gap-2 rounded-full text-sm px-6 py-3 text-text-primary border border-stroke hover:border-transparent transition-all duration-300"
             >
               <span className="absolute inset-[-2px] rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
@@ -115,7 +116,7 @@ export default function Explorations() {
                   ↗
                 </span>
               </span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -126,17 +127,19 @@ export default function Explorations() {
               {/* Left column */}
               <div ref={col1Ref} className="flex flex-col gap-8 pt-[20vh]">
                 {leftItems.map(item => (
-                  <div
+                  <button
                     key={item.title}
+                    type="button"
                     onClick={() => setLightbox(item.image)}
-                    className="pointer-events-auto cursor-pointer aspect-square max-w-[320px] rounded-2xl overflow-hidden border border-stroke bg-surface hover:rotate-1 transition-transform duration-500"
+                    className="pointer-events-auto cursor-pointer aspect-square max-w-[320px] rounded-2xl overflow-hidden border border-stroke bg-surface hover:rotate-1 transition-transform duration-500 p-0"
+                    style={{ display: 'block' }}
                   >
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
 
@@ -146,17 +149,19 @@ export default function Explorations() {
                 className="flex flex-col gap-8 pt-[40vh] items-end"
               >
                 {rightItems.map(item => (
-                  <div
+                  <button
                     key={item.title}
+                    type="button"
                     onClick={() => setLightbox(item.image)}
-                    className="pointer-events-auto cursor-pointer aspect-square max-w-[320px] rounded-2xl overflow-hidden border border-stroke bg-surface hover:-rotate-1 transition-transform duration-500"
+                    className="pointer-events-auto cursor-pointer aspect-square max-w-[320px] rounded-2xl overflow-hidden border border-stroke bg-surface hover:-rotate-1 transition-transform duration-500 p-0"
+                    style={{ display: 'block' }}
                   >
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -166,16 +171,19 @@ export default function Explorations() {
 
       {/* Lightbox */}
       {lightbox && (
-        <div
+        <button
+          type="button"
+          aria-label="Close lightbox"
           onClick={() => setLightbox(null)}
-          className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-8 cursor-pointer"
+          className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-8 cursor-pointer w-full border-none"
+          style={{ background: 'rgba(0,0,0,0.9)' }}
         >
           <img
             src={lightbox}
             alt=""
             className="max-w-full max-h-full object-contain rounded-2xl"
           />
-        </div>
+        </button>
       )}
     </>
   )

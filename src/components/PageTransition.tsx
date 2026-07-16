@@ -28,7 +28,6 @@ export default function PageTransition() {
         zIndex:          9990,
         background:      '#080808',
         transform:       'translateY(-100%)',
-        willChange:      'transform',
         pointerEvents:   'none',
       }}
     >

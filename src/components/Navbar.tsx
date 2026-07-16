@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import TransitionLink from './TransitionLink'
 
 const NAV_LINKS = [
@@ -145,24 +145,25 @@ export default function Navbar() {
 
           {/* ── Hamburger — mobile ── */}
           <button
+            type="button"
             onClick={() => setMobileOpen(o => !o)}
             aria-label="Toggle menu"
             className="md:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/[0.06] transition-colors duration-200"
           >
             <div className="relative w-5 h-[14px] flex flex-col justify-between">
-              <motion.span
+              <m.span
                 animate={mobileOpen
                   ? { rotate: 45, y: 6, width: '100%' }
                   : { rotate: 0,  y: 0, width: '100%' }}
                 transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
                 className="block h-[1.5px] bg-text-primary origin-center rounded-full"
               />
-              <motion.span
+              <m.span
                 animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                 transition={{ duration: 0.18 }}
                 className="block h-[1.5px] bg-text-primary rounded-full"
               />
-              <motion.span
+              <m.span
                 animate={mobileOpen
                   ? { rotate: -45, y: -6, width: '100%' }
                   : { rotate: 0,   y: 0,  width: '100%' }}
@@ -177,7 +178,7 @@ export default function Navbar() {
       {/* ── Mobile Full-Screen Menu ──────────────────────────────── */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -198,7 +199,7 @@ export default function Navbar() {
             {/* Links */}
             <nav className="relative flex flex-col items-center gap-1 w-full px-8">
               {NAV_LINKS.map(({ label, path }, i) => (
-                <motion.div
+                <m.div
                   key={path}
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0  }}
@@ -223,11 +224,11 @@ export default function Navbar() {
                   >
                     {label}
                   </TransitionLink>
-                </motion.div>
+                </m.div>
               ))}
 
               {/* Say hi */}
-              <motion.a
+              <m.a
                 href="mailto:design2code93@gmail.com"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0  }}
@@ -244,9 +245,9 @@ export default function Navbar() {
                   Say hi
                   <span className="ml-1 text-xs" style={{ color: 'var(--accent)' }}>↗</span>
                 </span>
-              </motion.a>
+              </m.a>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

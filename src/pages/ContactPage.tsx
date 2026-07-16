@@ -303,13 +303,21 @@ function ContactPhotoCard() {
     })
   }
 
+  const handleMouseEnter = () => {
+    if (cardRef.current) cardRef.current.style.willChange = 'transform'
+  }
+
   const handleMouseLeave = () => {
-    gsap.to(cardRef.current, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' })
+    gsap.to(cardRef.current, {
+      rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out',
+      onComplete: () => { if (cardRef.current) cardRef.current.style.willChange = 'auto' },
+    })
   }
 
   return (
     <div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -324,7 +332,6 @@ function ContactPhotoCard() {
         backdropFilter: 'blur(16px)',
         boxShadow:      '0 0 60px oklch(0.72 0.18 50 / 0.10), 0 24px 48px rgba(0,0,0,0.4), inset 0 1px 0 oklch(1 0 0 / 0.06)',
         transformStyle: 'preserve-3d',
-        willChange:     'transform',
         cursor:         'default',
       }}
     >
@@ -537,12 +544,41 @@ export default function ContactPage() {
               color:      'oklch(0.96 0 0)',
             }}
           >
-            Let's talk.
+            Let's build<br/>something real.
           </h1>
-          <p data-ct className="text-muted text-base md:text-lg leading-relaxed max-w-xl">
-            Have a project in mind? Want to collaborate, or just say hello?
-            Drop me a note — I typically reply within 24 hours.
+          <p data-ct className="text-muted text-base md:text-lg leading-relaxed max-w-xl" style={{ marginBottom: '1.5rem' }}>
+            I work with teams who care about conversion, craft, and shipping on time.
+            If that's you — let's talk. I typically reply within 24 hours.
           </p>
+
+          {/* Not-a-fit filter */}
+          <div
+            data-ct
+            style={{
+              maxWidth:     '36rem',
+              padding:      '1rem 1.25rem',
+              borderRadius: '0.5rem',
+              border:       '1px solid oklch(0.20 0 0)',
+              background:   'oklch(0.08 0 0 / 0.5)',
+            }}
+          >
+            <p style={{ fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.18em', textTransform:'uppercase', color:'oklch(0.38 0 0)', marginBottom:'0.6rem' }}>
+              Probably not the right fit if…
+            </p>
+            <ul style={{ listStyle:'none', padding:0, margin:0, display:'flex', flexDirection:'column', gap:'0.35rem' }}>
+              {[
+                'You need a "quick 2-day task" at an hourly rate',
+                'Budget is sub-₹50K with enterprise-scale expectations',
+                'You want a developer who just executes Figma files, no questions asked',
+                'The brief is "make it look like Apple"',
+              ].map(item => (
+                <li key={item} style={{ fontSize:'0.78rem', color:'oklch(0.45 0 0)', display:'flex', gap:'0.5rem', alignItems:'flex-start' }}>
+                  <span style={{ color:'oklch(0.30 0 0)', flexShrink:0, marginTop:'0.05em' }}>—</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -624,6 +660,7 @@ export default function ContactPage() {
                     within 24 hours.
                   </p>
                   <button
+                    type="button"
                     onClick={resetForm}
                     className="mt-2 text-xs tracking-[0.16em] uppercase"
                     style={{ color: 'var(--accent)' }}
