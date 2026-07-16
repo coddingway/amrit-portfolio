@@ -176,13 +176,15 @@ export default function StatsStrip() {
             <div className="relative flex items-end gap-0 leading-none mb-3">
               <span
                 ref={el => { numRefs.current[i] = el }}
-                className="font-bold tabular-nums"
+                className="tabular-nums"
                 style={{
-                  fontSize:    'clamp(3rem, 7vw, 5.5rem)',
-                  color:       'var(--accent)',
-                  lineHeight:  1,
-                  fontFamily:  "'Inter', sans-serif",
+                  fontSize:      'clamp(3rem, 7vw, 5.5rem)',
+                  fontWeight:    900,
+                  color:         'var(--accent)',
+                  lineHeight:    1,
+                  fontFamily:    "'Inter', sans-serif",
                   letterSpacing: '-0.03em',
+                  textShadow:    '0 0 48px oklch(0.72 0.18 50 / 0.4)',
                 }}
               >
                 0{stat.suffix}
@@ -193,7 +195,7 @@ export default function StatsStrip() {
             <div className="relative mb-1">
               <span
                 className="text-sm font-semibold uppercase tracking-widest"
-                style={{ color: 'oklch(0.96 0 0)' }}
+                style={{ color: 'oklch(0.78 0 0)' }}
               >
                 {stat.label}
               </span>
