@@ -90,116 +90,121 @@ export default function TransformationStory() {
     >
       <div className="px-6 md:px-14 lg:px-24">
 
-        {/* Header */}
-        <div className="mb-14 md:mb-20">
-          <p style={{
-            fontSize:      '0.65rem',
-            fontWeight:    600,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            color:         'var(--accent)',
-            marginBottom:  '0.9rem',
-          }}>
-            The journey
-          </p>
-          <h2 style={{
-            fontFamily:    "'Inter', sans-serif",
-            fontWeight:    800,
-            fontSize:      'clamp(1.8rem, 5vw, 3.5rem)',
-            letterSpacing: '-0.03em',
-            lineHeight:    1.05,
-            color:         'var(--color-text-primary)',
-            maxWidth:      '640px',
-          }}>
-            From Notepad to Node.js —{' '}
-            <span style={{ color: 'var(--accent)' }}>and everything that came after.</span>
-          </h2>
-        </div>
+        {/* Desktop: 2-col — headline left, timeline right. Mobile: stacked. */}
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-        {/* Timeline */}
-        <div style={{ position: 'relative', display: 'flex', gap: '2.5rem' }}>
+          {/* Left — sticky headline */}
+          <div className="md:sticky md:top-32">
+            <p style={{
+              fontSize:      '0.65rem',
+              fontWeight:    600,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color:         'var(--accent)',
+              marginBottom:  '0.9rem',
+            }}>
+              The journey
+            </p>
+            <h2 style={{
+              fontFamily:    "'Inter', sans-serif",
+              fontWeight:    800,
+              fontSize:      'clamp(1.8rem, 3.5vw, 3rem)',
+              letterSpacing: '-0.03em',
+              lineHeight:    1.05,
+              color:         'var(--color-text-primary)',
+              marginBottom:  '1.2rem',
+            }}>
+              From Notepad to Node.js —{' '}
+              <span style={{ color: 'var(--accent)' }}>and everything that came after.</span>
+            </h2>
+            <p style={{ fontSize: '0.85rem', color: 'oklch(0.48 0 0)', lineHeight: 1.7 }}>
+              Started with Notepad on Windows XP. Still learning. That's the whole story
+              — 8 years compressed into 6 stops.
+            </p>
+          </div>
 
-          {/* Vertical line */}
-          <div style={{ position: 'relative', width: '1px', flexShrink: 0, marginTop: '0.6rem' }}>
+          {/* Right — timeline rows */}
+          <div style={{ position: 'relative' }}>
+            {/* Vertical line */}
             <div
               ref={lineRef}
               style={{
                 position:   'absolute',
                 top:        0,
                 bottom:     0,
-                left:       0,
+                left:       '3.5rem',
                 width:      '1px',
-                background: 'linear-gradient(to bottom, var(--accent), oklch(0.45 0.14 280 / 0.3))',
+                background: 'linear-gradient(to bottom, var(--accent), oklch(0.30 0 0 / 0))',
+                transformOrigin: 'top center',
               }}
             />
+
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {MILESTONES.map((m, i) => {
+                const isLast = i === MILESTONES.length - 1
+                return (
+                  <div
+                    key={m.year}
+                    ref={el => { rowRefs.current[i] = el }}
+                    style={{
+                      display:       'flex',
+                      gap:           '1.25rem',
+                      alignItems:    'flex-start',
+                      paddingBottom: isLast ? 0 : 'clamp(1.8rem, 3.5vw, 2.8rem)',
+                    }}
+                  >
+                    {/* Year + dot */}
+                    <div style={{ flexShrink: 0, width: '3.5rem', textAlign: 'right', paddingTop: '0.1rem', position: 'relative' }}>
+                      <span style={{
+                        fontSize:    '0.60rem',
+                        fontWeight:  700,
+                        letterSpacing: '0.06em',
+                        color:       isLast ? 'var(--accent)' : 'oklch(0.42 0 0)',
+                        lineHeight:  1,
+                      }}>
+                        {m.year}
+                      </span>
+                      {/* Dot sits on top of the line */}
+                      <div style={{
+                        position:     'absolute',
+                        top:          '0.05rem',
+                        right:        '-1.3rem',
+                        width:        '8px',
+                        height:       '8px',
+                        borderRadius: '50%',
+                        background:   isLast ? 'var(--accent)' : 'oklch(0.22 0 0)',
+                        border:       `1.5px solid ${isLast ? 'var(--accent)' : 'oklch(0.34 0 0)'}`,
+                        boxShadow:    isLast ? '0 0 10px var(--accent)' : 'none',
+                        zIndex:       1,
+                      }} />
+                    </div>
+
+                    {/* Content */}
+                    <div style={{ flex: 1, paddingLeft: '0.75rem' }}>
+                      <p style={{
+                        fontFamily:   "'Inter', sans-serif",
+                        fontWeight:   600,
+                        fontSize:     'clamp(0.88rem, 1.6vw, 1rem)',
+                        color:        isLast ? 'oklch(0.96 0 0)' : 'oklch(0.80 0 0)',
+                        marginBottom: '0.3rem',
+                        lineHeight:   1.3,
+                      }}>
+                        {m.title}
+                      </p>
+                      <p style={{
+                        fontSize:  '0.80rem',
+                        color:     'oklch(0.50 0 0)',
+                        lineHeight: 1.65,
+                      }}>
+                        {m.desc}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
 
-          {/* Rows */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0' }}>
-            {MILESTONES.map((m, i) => (
-              <div
-                key={m.year}
-                ref={el => { rowRefs.current[i] = el }}
-                style={{
-                  display:      'grid',
-                  gridTemplateColumns: 'clamp(2.8rem, 6vw, 4.5rem) 1fr',
-                  gap:          '1.5rem',
-                  paddingBottom: i < MILESTONES.length - 1 ? 'clamp(2rem, 4vw, 3.5rem)' : 0,
-                  position:     'relative',
-                }}
-              >
-                {/* Dot on the line */}
-                <div style={{ position: 'relative' }}>
-                  <span style={{
-                    display:     'block',
-                    fontSize:    '0.62rem',
-                    fontWeight:  700,
-                    letterSpacing: '0.05em',
-                    color:       i === MILESTONES.length - 1 ? 'var(--accent)' : 'oklch(0.48 0 0)',
-                    lineHeight:  1,
-                    paddingTop:  '0.35rem',
-                    textAlign:   'right',
-                  }}>
-                    {m.year}
-                  </span>
-                  {/* Dot */}
-                  <div style={{
-                    position:    'absolute',
-                    top:         '0.35rem',
-                    right:       '-2.65rem',
-                    width:       '7px',
-                    height:      '7px',
-                    borderRadius:'50%',
-                    background:  i === MILESTONES.length - 1 ? 'var(--accent)' : 'oklch(0.30 0 0)',
-                    border:      `1px solid ${i === MILESTONES.length - 1 ? 'var(--accent)' : 'oklch(0.38 0 0)'}`,
-                    boxShadow:   i === MILESTONES.length - 1 ? '0 0 10px var(--accent)' : 'none',
-                  }} />
-                </div>
-
-                {/* Content */}
-                <div>
-                  <p style={{
-                    fontFamily:  "'Inter', sans-serif",
-                    fontWeight:  600,
-                    fontSize:    'clamp(0.9rem, 1.8vw, 1.05rem)',
-                    color:       i === MILESTONES.length - 1 ? 'oklch(0.96 0 0)' : 'oklch(0.82 0 0)',
-                    marginBottom:'0.35rem',
-                    lineHeight:  1.3,
-                  }}>
-                    {m.title}
-                  </p>
-                  <p style={{
-                    fontSize:  '0.82rem',
-                    color:     'oklch(0.55 0 0)',
-                    lineHeight: 1.65,
-                    maxWidth:  '520px',
-                  }}>
-                    {m.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
       </div>
