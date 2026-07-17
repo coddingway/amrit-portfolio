@@ -7,7 +7,6 @@ const NAV_LINKS = [
   { label: 'Work',        path: '/work' },
   { label: 'About',       path: '/about' },
   { label: 'Football',    path: '/football' },
-  { label: 'Photography', path: '/photography' },
   { label: 'Contact',     path: '/contact' },
 ]
 
@@ -227,6 +226,30 @@ export default function Navbar() {
                 </m.div>
               ))}
 
+              {/* Résumé download */}
+              <m.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0  }}
+                exit={{    opacity: 0, y: 16  }}
+                transition={{
+                  delay:    NAV_LINKS.length * 0.06,
+                  duration: 0.28,
+                  ease:     [0.25, 0.1, 0.25, 1],
+                }}
+                className="w-full"
+              >
+                <a
+                  href="/amrit-podder-resume.pdf"
+                  download="Amrit-Podder-Resume.pdf"
+                  className="flex items-center justify-center gap-2 py-3 text-3xl font-light text-muted hover:text-text-primary transition-colors duration-200"
+                >
+                  <svg width="18" height="18" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
+                    <path d="M7 1v8M4 7l3 3 3-3M2 12h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Résumé
+                </a>
+              </m.div>
+
               {/* Say hi */}
               <m.a
                 href="mailto:design2code93@gmail.com"
@@ -234,7 +257,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0  }}
                 exit={{    opacity: 0, y: 16  }}
                 transition={{
-                  delay:    NAV_LINKS.length * 0.06,
+                  delay:    (NAV_LINKS.length + 1) * 0.06,
                   duration: 0.28,
                   ease:     [0.25, 0.1, 0.25, 1],
                 }}

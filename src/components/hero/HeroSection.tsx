@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import Aurora from './Aurora'
-import Particles from './Particles'
+import SoftAurora from './SoftAurora'
 import TransitionLink from '../TransitionLink'
 
 export default function HeroSection() {
@@ -73,8 +72,28 @@ export default function HeroSection() {
       className="relative w-full min-h-screen flex flex-col overflow-hidden"
     >
       {/* Background layers */}
-      <Aurora />
-      <Particles />
+      {/* SoftAurora WebGL layer — replaces old canvas Aurora */}
+      <div
+        aria-hidden
+        style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}
+      >
+        <SoftAurora
+          speed={0.5}
+          scale={0.9}
+          brightness={0.7}
+          color1="#fa7c20"
+          color2="#fa7c20"
+          noiseFrequency={1.5}
+          noiseAmplitude={1.5}
+          bandHeight={0.4}
+          bandSpread={0.8}
+          octaveDecay={0.07}
+          layerOffset={0.25}
+          colorSpeed={0.6}
+          enableMouseInteraction={true}
+          mouseInfluence={0.15}
+        />
+      </div>
 
       <div
         aria-hidden

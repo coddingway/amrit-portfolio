@@ -36,62 +36,59 @@ export default function AiStance() {
       style={{ padding: 'clamp(5rem, 10vw, 9rem) 0', borderTop: '1px solid oklch(0.14 0 0)' }}
     >
       <div className="px-6 md:px-14 lg:px-24">
-        <div style={{ maxWidth: '780px' }}>
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          <p
-            ref={el => { linesRef.current[0] = el }}
-            style={{
-              fontSize:      '0.65rem',
-              fontWeight:    600,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color:         'var(--accent)',
-              marginBottom:  '1.6rem',
-              opacity:       0,
-            }}
-          >
-            On AI &amp; craft
-          </p>
+          {/* Left — headline */}
+          <div className="md:sticky md:top-32">
+            <p
+              ref={el => { linesRef.current[0] = el }}
+              style={{
+                fontSize:      '0.65rem',
+                fontWeight:    600,
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                color:         'var(--accent)',
+                marginBottom:  '1.6rem',
+                opacity:       0,
+              }}
+            >
+              On AI &amp; craft
+            </p>
 
-          <h2
-            ref={el => { linesRef.current[1] = el }}
-            style={{
-              fontFamily:    "'Inter', sans-serif",
-              fontWeight:    800,
-              fontSize:      'clamp(2rem, 6vw, 4rem)',
-              letterSpacing: '-0.03em',
-              lineHeight:    1.05,
-              color:         'var(--color-text-primary)',
-              marginBottom:  '0.3rem',
-              opacity:       0,
-            }}
-          >
-            I vibe code.
-          </h2>
+            <h2
+              ref={el => { linesRef.current[1] = el }}
+              style={{
+                fontFamily:    "'Inter', sans-serif",
+                fontWeight:    800,
+                fontSize:      'clamp(2rem, 4vw, 3.5rem)',
+                letterSpacing: '-0.03em',
+                lineHeight:    1.05,
+                color:         'var(--color-text-primary)',
+                marginBottom:  '0.3rem',
+                opacity:       0,
+              }}
+            >
+              I vibe code.
+            </h2>
 
-          <h2
-            ref={el => { linesRef.current[2] = el }}
-            style={{
-              fontFamily:    "'Inter', sans-serif",
-              fontWeight:    800,
-              fontSize:      'clamp(2rem, 6vw, 4rem)',
-              letterSpacing: '-0.03em',
-              lineHeight:    1.05,
-              color:         'oklch(0.42 0 0)',
-              marginBottom:  'clamp(2rem, 5vw, 3.5rem)',
-              opacity:       0,
-            }}
-          >
-            I also know why the vibe was wrong.
-          </h2>
+            <h2
+              ref={el => { linesRef.current[2] = el }}
+              style={{
+                fontFamily:    "'Inter', sans-serif",
+                fontWeight:    800,
+                fontSize:      'clamp(2rem, 4vw, 3.5rem)',
+                letterSpacing: '-0.03em',
+                lineHeight:    1.05,
+                color:         'oklch(0.42 0 0)',
+                opacity:       0,
+              }}
+            >
+              I also know why the vibe was wrong.
+            </h2>
+          </div>
 
-          <div
-            style={{
-              display:             'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap:                 '2rem',
-            }}
-          >
+          {/* Right — 3 cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {[
               {
                 heading: 'AI accelerates. It doesn\'t replace judgement.',

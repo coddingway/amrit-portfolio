@@ -46,7 +46,7 @@ export default function FeaturedWork() {
   const FEATURED = ['ponds-india', 'liquid-iv-australia', 'liquid-iv-canada', 'wipro-consumer-lighting', 'be-beautiful', 'brew-for-you', 'edgeverve', 'celegence']
 
   const items: ChromaItem[] = PROJECTS.filter(p => FEATURED.includes(p.slug)).sort((a, b) => FEATURED.indexOf(a.slug) - FEATURED.indexOf(b.slug)).map(p => ({
-    image:       p.screens?.[0],
+    image:       p.coverImage ?? p.screens?.[0],
     title:       p.title,
     subtitle:    p.client,
     handle:      p.category,

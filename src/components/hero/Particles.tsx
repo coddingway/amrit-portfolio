@@ -23,15 +23,15 @@ export default function Particles() {
     const camera   = new THREE.PerspectiveCamera(60, W / H, 0.1, 100)
     camera.position.z = 5
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setSize(W, H)
     renderer.setClearColor(0x000000, 0) // fully transparent bg
     renderer.domElement.style.cssText = 'position:absolute;inset:0;display:block;width:100%;height:100%;'
     el.appendChild(renderer.domElement)
 
     // ── Particle geometry ────────────────────────────────────────────────────
-    const COUNT     = 280
+    const COUNT     = 150
     const positions = new Float32Array(COUNT * 3)
     const colorsArr = new Float32Array(COUNT * 3)
 
@@ -95,15 +95,15 @@ export default function Particles() {
 
     // ── Animation loop ───────────────────────────────────────────────────────
     let raf = 0
+    let visible = true
 
     const animate = () => {
       raf = requestAnimationFrame(animate)
+      if (!visible) return
 
-      // Very slow auto-rotation — just enough to feel alive
       points.rotation.y += 0.00025
       points.rotation.x += 0.00012
 
-      // Smooth camera drift toward mouse position
       camera.position.x += (targetX * 0.35 - camera.position.x) * 0.04
       camera.position.y += (-targetY * 0.22 - camera.position.y) * 0.04
 
@@ -111,8 +111,16 @@ export default function Particles() {
     }
     animate()
 
+    // Pause when hero scrolls out of view
+    const observer = new IntersectionObserver(
+      ([entry]) => { visible = entry.isIntersecting },
+      { threshold: 0 },
+    )
+    observer.observe(el)
+
     return () => {
       cancelAnimationFrame(raf)
+      observer.disconnect()
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize',    onResize)
       renderer.dispose()

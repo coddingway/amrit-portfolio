@@ -13,8 +13,18 @@ const PLACEHOLDER_AFTER  = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 gsap.registerPlugin(ScrollTrigger)
 
 // Re-use the same visual components from Work.tsx inline
-function ProjectVisual({ visual, style }: { visual: string; style?: React.CSSProperties }) {
+function ProjectVisual({ visual, coverImage, style }: { visual: string; coverImage?: string; style?: React.CSSProperties }) {
   const base: React.CSSProperties = { position: 'absolute', inset: 0, ...style }
+
+  if (coverImage) {
+    return (
+      <img
+        src={coverImage}
+        alt=""
+        style={{ ...base, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+      />
+    )
+  }
 
   switch (visual) {
     case 'ponds':
@@ -177,15 +187,18 @@ export default function WorkDetail() {
           marginTop:  0,
         }}
       >
-        <ProjectVisual visual={project.visual} />
+        <ProjectVisual visual={project.visual} coverImage={project.coverImage} />
 
-        {/* Dark bottom gradient */}
+        {/* Dark overlay — top for button legibility, bottom for text */}
         <div style={{
-          position:   'absolute',
-          bottom:     0, left: 0, right: 0,
-          height:     '65%',
-          background: 'linear-gradient(to top, oklch(0.06 0.005 50) 0%, transparent 100%)',
-          zIndex:     2,
+          position: 'absolute',
+          inset:    0,
+          background: `linear-gradient(to bottom,
+            oklch(0 0 0 / 0.55) 0%,
+            transparent 35%,
+            transparent 35%,
+            oklch(0.06 0.005 50) 100%)`,
+          zIndex: 2,
         }} />
 
         {/* Back arrow */}
@@ -370,24 +383,21 @@ export default function WorkDetail() {
           </div>
         </div>
 
-        {/* Before / After slider */}
-        <div data-section>
-          <p style={{ fontSize:'0.65rem', fontWeight:700, letterSpacing:'0.22em', textTransform:'uppercase', color:'oklch(0.35 0 0)', marginBottom:'0.5rem' }}>
-            Before / After
-          </p>
-          {!project.beforeImage && (
-            <p style={{ fontSize:'0.68rem', color:'oklch(0.35 0 0)', marginBottom:'0.8rem', fontStyle:'italic' }}>
-              Placeholder — real screenshots coming. Drag the handle to compare.
+        {/* Before / After slider — only shown when real images exist */}
+        {project.beforeImage && (
+          <div data-section>
+            <p style={{ fontSize:'0.65rem', fontWeight:700, letterSpacing:'0.22em', textTransform:'uppercase', color:'oklch(0.35 0 0)', marginBottom:'0.5rem' }}>
+              Before / After
             </p>
-          )}
-          <BeforeAfterSlider
-            before={project.beforeImage ?? PLACEHOLDER_BEFORE}
-            after={project.afterImage  ?? PLACEHOLDER_AFTER}
-            beforeLabel="Before"
-            afterLabel="After"
-            aspect="16/9"
-          />
-        </div>
+            <BeforeAfterSlider
+              before={project.beforeImage}
+              after={project.afterImage ?? PLACEHOLDER_AFTER}
+              beforeLabel="Before"
+              afterLabel="After"
+              aspect="16/9"
+            />
+          </div>
+        )}
 
         {/* Tech stack */}
         <div data-section>

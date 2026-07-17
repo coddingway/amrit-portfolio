@@ -58,7 +58,6 @@ const NAV_LINKS = [
   { label: 'About',       to: '/about' },
   { label: 'Work',        to: '/work' },
   { label: 'Football',    to: '/football' },
-  { label: 'Photography', to: '/photography' },
   { label: 'Contact',     to: '/contact' },
 ]
 

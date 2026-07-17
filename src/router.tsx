@@ -5,7 +5,6 @@ import About from './pages/About'
 import Work from './pages/Work'
 import WorkDetail from './pages/WorkDetail'
 import Football from './pages/Football'
-import Photography from './pages/Photography'
 import ContactPage from './pages/ContactPage'
 
 export const router = createBrowserRouter([
@@ -18,7 +17,6 @@ export const router = createBrowserRouter([
       { path: 'work',         element: <Work /> },
       { path: 'work/:slug',   element: <WorkDetail /> },
       { path: 'football',     element: <Football /> },
-      { path: 'photography',  element: <Photography /> },
       { path: 'contact',      element: <ContactPage /> },
     ],
   },

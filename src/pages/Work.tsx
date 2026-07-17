@@ -9,7 +9,16 @@ gsap.registerPlugin(ScrollTrigger)
 const FILTERS = ['All', 'E-Commerce', 'WordPress', 'Headless', 'Enterprise', 'WebAR', 'UI Dev']
 
 // ─── Visual backgrounds per project ──────────────────────────────────────────
-function ProjectVisual({ visual }: { visual: string }) {
+function ProjectVisual({ visual, coverImage }: { visual: string; coverImage?: string }) {
+  if (coverImage) {
+    return (
+      <img
+        src={coverImage}
+        alt=""
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+      />
+    )
+  }
   switch (visual) {
     case 'ponds':
       return (
@@ -113,6 +122,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
 
   const isLarge  = project.size === 'large'
   const isMedium = project.size === 'medium'
+  const isSmall  = !isLarge && !isMedium
 
   return (
     <div
@@ -130,7 +140,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
       }}
     >
       {/* Visual background */}
-      <ProjectVisual visual={project.visual} />
+      <ProjectVisual visual={project.visual} coverImage={project.coverImage} />
 
       {/* Always-visible bottom label */}
       <div style={{
@@ -203,22 +213,28 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
           fontSize:     '0.82rem',
           color:        'oklch(0.80 0 0)',
           lineHeight:   1.6,
-          marginBottom: '1rem',
+          marginBottom: '0.75rem',
+          display:      '-webkit-box',
+          WebkitLineClamp: isLarge ? 4 : isMedium ? 3 : 2,
+          WebkitBoxOrient: 'vertical',
+          overflow:     'hidden',
         }}>
           {project.desc}
         </p>
 
-        {/* Tags */}
-        <div style={{ display:'flex', flexWrap:'wrap', gap:'0.35rem', marginBottom:'1rem' }}>
-          {project.tags.map(t => (
-            <span key={t} style={{
-              fontSize:'0.60rem', fontWeight:600, letterSpacing:'0.04em',
-              color:'oklch(0.55 0 0)', background:'oklch(0.12 0 0)',
-              border:'1px solid oklch(0.22 0 0)', borderRadius:'999px',
-              padding:'0.18rem 0.55rem',
-            }}>{t}</span>
-          ))}
-        </div>
+        {/* Tags — hidden on small cards to save space */}
+        {!isSmall && (
+          <div style={{ display:'flex', flexWrap:'wrap', gap:'0.35rem', marginBottom:'0.75rem' }}>
+            {project.tags.slice(0, isMedium ? 3 : 5).map(t => (
+              <span key={t} style={{
+                fontSize:'0.60rem', fontWeight:600, letterSpacing:'0.04em',
+                color:'oklch(0.55 0 0)', background:'oklch(0.12 0 0)',
+                border:'1px solid oklch(0.22 0 0)', borderRadius:'999px',
+                padding:'0.18rem 0.55rem',
+              }}>{t}</span>
+            ))}
+          </div>
+        )}
 
         {/* CTA row */}
         <div style={{ display:'flex', gap:'0.6rem', alignItems:'center' }}>
