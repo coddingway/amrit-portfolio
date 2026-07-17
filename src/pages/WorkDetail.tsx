@@ -6,10 +6,6 @@ import TransitionLink from '../components/TransitionLink'
 import BeforeAfterSlider from '../components/BeforeAfterSlider'
 import { getProject, getAdjacentProjects } from '../data/projects'
 
-// Placeholder SVGs used until real before/after images are supplied
-const PLACEHOLDER_BEFORE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='1200' height='675' fill='%230f0f14'/%3E%3Ctext x='600' y='338' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='28' fill='%23333' letter-spacing='10'%3EBEFORE%3C/text%3E%3C/svg%3E"
-const PLACEHOLDER_AFTER  = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Crect width='1200' height='675' fill='%231a0d06'/%3E%3Ctext x='600' y='338' text-anchor='middle' dominant-baseline='middle' font-family='system-ui' font-size='28' fill='%23c41ed4' letter-spacing='10'%3EAFTER%3C/text%3E%3C/svg%3E"
-
 gsap.registerPlugin(ScrollTrigger)
 
 // Re-use the same visual components from Work.tsx inline
@@ -391,7 +387,7 @@ export default function WorkDetail() {
             </p>
             <BeforeAfterSlider
               before={project.beforeImage}
-              after={project.afterImage ?? PLACEHOLDER_AFTER}
+              after={project.afterImage ?? ''}
               beforeLabel="Before"
               afterLabel="After"
               aspect="16/9"
