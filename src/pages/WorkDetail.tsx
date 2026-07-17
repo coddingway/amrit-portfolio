@@ -380,14 +380,14 @@ export default function WorkDetail() {
         </div>
 
         {/* Before / After slider — only shown when real images exist */}
-        {project.beforeImage && (
+        {project.afterImage && (
           <div data-section>
             <p style={{ fontSize:'0.65rem', fontWeight:700, letterSpacing:'0.22em', textTransform:'uppercase', color:'oklch(0.35 0 0)', marginBottom:'0.5rem' }}>
               Before / After
             </p>
             <BeforeAfterSlider
-              before={project.beforeImage}
-              after={project.afterImage ?? ''}
+              before={project.beforeImage ?? ''}
+              after={project.afterImage}
               beforeLabel="Before"
               afterLabel="After"
               aspect="16/9"
