@@ -1,0 +1,43 @@
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # reads pnpm version from package.json "packageManager"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      # Deploys only once the FIREBASE_SERVICE_ACCOUNT secret exists; until then
+      # the build still runs (green) and this step is skipped (no red failure).
+      - name: Deploy to Firebase Hosting (live)
+        if: env.SA != ''
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: lens-be13a
+          channelId: live
+
+      - name: Reminder if secret missing
+        if: env.SA == ''
+        run: echo "::warning::Built OK but skipped deploy — add the FIREBASE_SERVICE_ACCOUNT repo secret to enable auto-deploy."
